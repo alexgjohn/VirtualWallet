@@ -16,7 +16,22 @@ public class Wallet {
         this.cards = cards;
     }
 
-//    public IChargeable choosePaymentMethod(IChargeable paymentMethod){
-//
-//    }
+    public IChargeable choosePaymentMethod(String paymentMethod){
+        IChargeable cardToSelect = null;
+        for (IChargeable card:cards){
+            if (card.getClass().getSimpleName() == paymentMethod){
+                cardToSelect = card;
+            }
+        }
+        return cardToSelect;
+    }
+
+    public void payWithSelectedMethod(double purchaseAmount, String paymentMethod){
+        IChargeable cardToUse = choosePaymentMethod(paymentMethod);
+        cardToUse.charge(purchaseAmount);
+    }
+
+    public void addCardToWallet(IChargeable cardToAdd){
+        cards.add(cardToAdd);
+    }
 }
